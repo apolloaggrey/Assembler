@@ -1,0 +1,36 @@
+// fibonacci fib(n) -> nth fibonacci number
+// 5/4/2019
+// Apollo Aggrey
+
+.data  // section is used for declaring initialized data or constants
+n 2,17 // allocates 2 bytes
+
+.bss  // section is used for declaring variables
+result 8,256 // allocates 8 bytes
+
+.text  // section is used for keeping the actual code.
+start: // tells linker entry point
+    LDR AX 0
+    LDR DX 1
+    LDR CX 0
+
+loop:
+    PUSH CX
+    LDR CX DX
+    ADD AX DX
+    LDR DX AX
+    LDR AX CX
+    POP CX
+
+
+incr_ctr: //increment counter at CX
+    PUSH AX
+    LDR AX CX
+    SUB AX 1
+    LDR CX AX
+    POP AX
+
+    CMP CX n
+    JLT loop
+    STR DX $result
+    HLT
